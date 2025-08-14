@@ -1,3 +1,4 @@
+
 #include <Servo.h>
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2);
@@ -16,7 +17,7 @@ void setup() {
   lcd.init();       // Initialize the LCD
   lcd.backlight();  // Turn on the backlight
 
-  
+  pinMode(13,OUTPUT);
   pinMode(IRL,INPUT);
   pinMode(IRR,INPUT);
   pinMode(G1,OUTPUT);
@@ -36,9 +37,11 @@ void loop() {
  
   if(r==0){
     servo1.write(80);
-    digitalWrite(G1,HIGH);
-    digitalWrite(G2,LOW);
-    digitalWrite(R2,HIGH);
+    digitalWrite(G2,HIGH);
+    digitalWrite(G1,LOW);
+    digitalWrite(R1,HIGH);
+    
+    digitalWrite(13,HIGH);
     lcd.clear();
     lcd.setCursor(0, 0); // Column 0, Row 0
     lcd.print("Train on track 1!");
@@ -47,9 +50,10 @@ void loop() {
  
   }else if(l == 0){
     servo1.write(40);
-    digitalWrite(G2,HIGH);
-    digitalWrite(G1,LOW);
-    digitalWrite(R1,HIGH);
+    digitalWrite(G1,HIGH);
+    digitalWrite(G2,LOW);
+    digitalWrite(R2,HIGH);
+    digitalWrite(13,HIGH);
     lcd.clear();
     lcd.setCursor(0, 0); // Column 0, Row 0
     lcd.print("Train on track 2!");
@@ -57,6 +61,7 @@ void loop() {
     lcd.print("Path Clear");
   }else {
     servo1.write(60);
+    digitalWrite(13,LOW);
     digitalWrite(G2,LOW);
     digitalWrite(G1,LOW);
     digitalWrite(R1,LOW);
